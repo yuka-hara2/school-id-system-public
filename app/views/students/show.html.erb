@@ -1,0 +1,77 @@
+<% if notice.present? %>
+  <div class='notice'>
+    <p id="notice"><%= notice %></p>    
+  </div>
+<% end %>
+
+<div class="detail">
+  <% if @student.profile_image.attached? %>
+    <%= image_tag @student.profile_image, width: "105", height: "115" %>
+  <% end %>
+  <div style="margin: 1rem 0;">
+    <%= link_to 'Edit', edit_student_path(@student), class: 'button' %>
+    <%= link_to 'List', students_path, class: 'button' %>    
+  </div>
+  <div class="detail-box">
+    <div class="detail-row">
+      <div class="detail-label">School ID</div>
+      <div class="detail-value"><%= @student.student_school_id %></div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-label">Name(Khmer Character)</div>
+      <div class="detail-value"><%= @student.name_khmer %></div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-label">Name(Alphabet)</div>
+      <div class="detail-value"><%= @student.name_alphabet %></div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-label">Gender</div>
+      <div class="detail-value"><%= @student.gender %></div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-label">School Program</div>
+      <div class="detail-value"><%= @student.school_program.name %></div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-label">Study Levels</div>
+      <div class="detail-value"><%= @student.study_level.name %></div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-label">Academic Year</div>
+      <div class="detail-value"><%= @student.academic_year_start %> - <%= @student.academic_year_end %></div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-label">Start Study</div>
+      <div class="detail-value"><%= @student.started_at.strftime('%F') %></div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-label">End Study</div>
+      <div class="detail-value"><%= @student.end_at.strftime('%F') %></div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-label">Khmer Calendar(For Start Date)</div>
+      <div class="detail-value"><%= @student.started_at_khmer_calender %></div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-label">Date of Birth</div>
+      <div class="detail-value"><%= @student.birthdate %></div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-label">Place of Birth</div>
+      <div class="detail-value"><%= @student.birth_place %></div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-label">Phone Number</div>
+      <div class="detail-value"><%= @student.phone_number %></div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-label">Parent Name</div>
+      <div class="detail-value"><%= @student.parent_name %></div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-label">Parent Phone Number</div>
+      <div class="detail-value"><%= @student.parent_phone_number %></div>
+    </div>
+  </div>
+</div>

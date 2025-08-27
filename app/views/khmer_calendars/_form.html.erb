@@ -1,0 +1,21 @@
+<% if khmer_calendar.errors.any? %>
+  <div id="error_explanation">
+    <ul>
+      <% khmer_calendar.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<%= form_for(khmer_calendar) do |f| %>
+  <div class="edit-area">
+    <dl>
+      <dt>Base Year</dt>
+      <dd><%= f.select :year, year_list, value: khmer_calendar.year %></dd>
+      <dt>Khmer Calendar Text(For Start Study Date)</dt>
+      <dd><%= f.text_field :khmer_calendar_text, maxlength: 100 %></dd>
+    </dl>
+  </div>        
+  <%= f.submit (["new", "create"].include?(controller.action_name) ? "Create" : "Update"), class: 'button' %>
+  <%= link_to 'List', khmer_calendars_path, class: 'button' %>
+<% end %>

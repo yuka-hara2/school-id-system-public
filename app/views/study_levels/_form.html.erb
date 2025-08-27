@@ -1,0 +1,22 @@
+<%= form_for(study_level) do |f| %>
+  <% if study_level.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+        <% study_level.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="edit-area">
+    <dl>
+      <dt>Level in English</dt>
+      <dd><%= f.text_field :name, maxlength: 50 %></dd>
+      <dt>Level in Khmer</dt>
+      <dd><%= f.text_field :name_khmer, maxlength: 50 %></dd>
+    </dl>
+  </div>        
+  <%= f.submit (["new", "create"].include?(controller.action_name) ? "Create" : "Update"), class: 'button' %>
+  <%= link_to 'List', study_levels_path, class: 'link-button' %>
+<% end %>

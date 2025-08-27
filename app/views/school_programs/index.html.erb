@@ -1,0 +1,35 @@
+<h2>Khmer School Program</h2>
+
+<% if notice.present? %>
+	<div class='notice'>
+		<p id="notice"><%= notice %></p>		
+	</div>
+<% end %>
+
+
+<%= link_to 'New School Program', new_school_program_path, class: 'link-button' %>
+<%= link_to 'Students List', students_path, class: 'link-button' %>
+
+<table>
+	<thead>
+		<tr>
+			<th>Program</th>
+			<th>ជំនាញ</th>
+			<th colspan="2"></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @school_programs.each do |school_program| %>
+			<tr>
+				<td><%= school_program.name %></td>
+				<td><%= school_program.skill_khmer %></td>
+				<td style="text-align: center;">
+					<%= link_to 'Edit', edit_school_program_path(school_program), class: 'link-button' %>
+				</td>
+				<td style="text-align: center;">
+					<%= button_to 'Delete', school_program, method: :delete, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'button' %>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

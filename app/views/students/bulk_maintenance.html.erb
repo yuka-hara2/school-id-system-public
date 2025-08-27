@@ -1,0 +1,58 @@
+<h2>Bulk maintenance students</h2>
+
+<%= link_to 'Students List', students_path, class: 'link-button' %>
+
+<h3>Export Students</h3>
+<div class="search-bar">
+	<%= form_with url: "/students/export.csv", method: :get do |f| %>
+    <%= f.label :year_started_at %>
+    <%= f.date_select :year_started_at, selected: @search_condition_year_started_at, discard_month: true, discard_day: true %>
+    <%= f.label :month_started_at %>
+    <%= f.date_select :month_started_at, selected: @search_condition_month_started_at, discard_year: true, discard_day: true, use_month_numbers: true, include_blank: true %>
+    <%= f.label :school_program %>
+    <%= f.collection_select :school_program_id, @school_programs, :id, :name, { include_blank: '', selected: @search_condition_school_program } %>
+    <%= f.submit "ExportStudents", class: 'button', style: 'margin-left: 1rem' %>
+	<% end %>
+</div>
+
+<h3>Import Students</h3>
+<div class="maintenance-area">
+	<% if notice.present? %>
+		<div class='notice'>
+			<%= simple_format(h(notice), {}, wrapper_tag: "div") %>
+		</div>
+	<% end %>
+	<%= form_with url: "/students/import", method: :post do |f| %>
+		<%= f.label :imput_csv %>
+		<%= f.file_field :imput_csv %>
+		<%= f.submit "ImportStudents", class: 'button', style: 'margin-left: 1rem' %>
+	<% end %>
+</div>
+
+<h3>Bulk Delete Students</h3>
+<% if flash[:notice_bulk_delete].present? %>
+	<div class='notice'>
+		<%= simple_format(h(flash[:notice_bulk_delete]), {}, wrapper_tag: "div") %>
+	</div>
+<% end %>
+<div class="search-bar">
+	<%= form_with url: "/students/search_for_bulk_delete", method: :get do |f| %>
+    <%= f.label :created_date %>
+    <%= f.date_select :created_date, selected: @search_condition_created_date, use_month_numbers: true, include_blank: true %>
+    <%= f.label :school_program %>
+    <%= f.collection_select :school_program_id, @school_programs, :id, :name, { include_blank: '', selected: @search_condition_school_program } %>
+    <%= f.submit "SearchForBulkDelete", class: 'button', style: 'margin-left: 1rem' %>
+	<% end %>
+</div>
+<div class="maintenance-area">
+	<%= form_with url: "/students/bulk_delete", method: :post do |f| %>
+		<% if @message_for_deleting_students.present? %>
+			<%= simple_format(h(@message_for_deleting_students), {}, wrapper_tag: "div") %>
+			<% if @exist_target_student %>
+				<%= f.hidden_field :created_date, value: @created_date %>
+				<%= f.hidden_field :school_program_id, value: @school_program_id %>
+		    <%= f.submit "Bulk Delete", class: 'button', data: { turbo_method: :bulk_delete, turbo_confirm: "Are you sure?" } %>
+			<% end %>
+		<% end %>
+	<% end %>
+</div>

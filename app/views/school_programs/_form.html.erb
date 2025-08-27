@@ -1,0 +1,22 @@
+<% if school_program.errors.any? %>
+  <div id="error_explanation">
+    <ul>
+      <% school_program.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for(school_program) do |f| %>
+  <div class="edit-area">
+    <dl>
+      <dt>Program Short Name(Less than 6 charactor for Students' ID)</dt>
+      <dd><%= f.text_field :name, maxlength: 6 %></dd>
+      <dt>ជំនាញ</dt>
+      <dd><%= f.text_field :skill_khmer, maxlength: 50 %></dd>
+    </dl>
+  </div>        
+  <%= f.submit (["new", "create"].include?(controller.action_name) ? "Create" : "Update"), class: 'button' %>
+  <%= link_to 'List', school_programs_path, class: 'button' %>
+<% end %>

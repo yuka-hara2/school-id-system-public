@@ -1,0 +1,28 @@
+<h2>Study Level</h2>
+<% if notice.present? %>
+	<div class='notice'>
+		<p id="notice"><%= notice %></p>		
+	</div>
+<% end %>
+<%= link_to 'New Study Level', new_study_level_path, class: 'link-button' %>
+<%= link_to 'Students List', students_path, class: 'link-button' %>
+
+<table>
+	<thead>
+		<tr>
+			<th>Level(in English)</th>
+			<th>Level(in Khmer)</th>
+			<th colspan="2"></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @study_levels.each do |study_level| %>
+			<tr>
+				<td><%= study_level.name %></td>
+				<td><%= study_level.name_khmer %></td>
+				<td><%= link_to 'Edit', edit_study_level_path(study_level), class: 'link-button' %></td>
+				<td><%= link_to 'Delete', study_level, method: :delete, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'link-button'%></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

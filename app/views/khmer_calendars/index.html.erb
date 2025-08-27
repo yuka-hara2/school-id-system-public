@@ -1,0 +1,30 @@
+<h2>Khmer Calendar List</h2>
+
+<% if notice.present? %>
+	<div class='notice'>
+		<p id="notice"><%= notice %></p>		
+	</div>
+<% end %>
+
+<%= link_to 'New Calendar', new_khmer_calendar_path, class: 'link-button' %>
+<%= link_to 'Students List', students_path, class: 'button' %>
+
+<table>
+	<thead>
+		<tr>
+			<th>Base Year</th>
+			<th>Calendar Text</th>
+			<th colspan="2"></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @khmer_calendars.each do |calendar| %>
+			<tr>
+				<td><%= calendar.year %></td>
+				<td><%= calendar.khmer_calendar_text %></td>
+				<td><%= link_to 'Edit', edit_khmer_calendar_path(calendar), class: 'link-button' %></td>
+				<td><%= link_to 'Delete', calendar, method: :delete, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'link-button'%></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

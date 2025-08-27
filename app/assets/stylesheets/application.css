@@ -1,0 +1,95 @@
+/*
+ * This is a manifest file that'll be compiled into application.css.
+ *
+ * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
+ * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
+ * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
+ * depending on specificity.
+ *
+ * Consider organizing styles into separate files for maintainability.
+ */
+body {
+  background-color: #FFF9D6;
+  font-family: "Siemreap", sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 900px;
+  margin: 2rem auto;
+  background: #fffef5;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 2rem;
+}
+
+h1, h2 {
+  color: #555;
+  text-align: center;
+}
+
+.link-buttons {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.button {
+  background-color: #FFD447;
+  color: #333;
+  border: none;
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+  font-size: 15px;
+}
+
+.link-button {
+  background-color: #FFD447;
+  color: #333;
+  border: none;
+  padding: 0.2rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 15px;
+  height: 9px;
+}
+
+.button:hover {
+  background-color: #FFC400;
+}
+
+.link-button:hover {
+  background-color: #FFC400;
+}
+
+.notice {
+  padding-bottom: 10px;
+}
+
+.edit-area dt{
+  margin-inline-start: 5px;
+  padding-top: 0.8rem;
+}
+
+.edit-area dd {
+    display: block;
+    margin-inline-start: 20px;
+    unicode-bidi: isolate;
+}
+
+select {
+  font-family: "Siemreap", sans-serif;
+}
+
+.maintenance-area label {
+  margin-left: 0.5rem;
+  margin-right: 0.2rem;
+}
+

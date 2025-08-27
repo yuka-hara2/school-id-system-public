@@ -1,0 +1,60 @@
+<script>
+	function submitClick() {
+    let elm       = event.target;
+    let actionUrl = elm.getAttribute("data-action");
+    document.getElementById("js-search-form").action = actionUrl;
+}
+</script>
+
+<h2>Students</h2>
+
+<div class="link-buttons">
+	<%= link_to 'New Student', new_student_path, class: 'link-button' %>
+	<%= link_to 'Bulk Maintenance Students', bulk_maintenance_students_path, class: 'link-button' %>
+	<%= link_to 'School Program List', school_programs_path, class: 'link-button' %>
+	<%= link_to 'Study Level List', study_levels_path, class: 'link-button' %>
+	<%= link_to 'Khmer Calendar List', khmer_calendars_path, class: 'link-button' %>
+</div>
+
+<div class="search-bar">
+	<%= form_with url: "/students/search", id: "js-search-form", method: :get do |f| %>
+    <%= f.label :year_started_at %>
+    <%= f.date_select :year_started_at, selected: @search_condition_year_started_at, discard_month: true, discard_day: true %>
+    <%= f.label :month_started_at %>
+    <%= f.date_select :month_started_at, selected: @search_condition_month_started_at, discard_year: true, discard_day: true, use_month_numbers: true, include_blank: true %>
+    <%= f.label :school_program %>
+    <%= f.collection_select :school_program_id, @school_programs, :id, :name, { include_blank: '', selected: @search_condition_school_program } %>
+    <%= f.submit "Search", class: 'button', style: 'margin-left: 0.5rem' %>
+    <%= f.submit "View Students Cards", class: 'button', onclick: "submitClick()", formtarget: '_blank', data: { action: "/students/test_id_card" } %>
+    <%= f.submit "Generate Students Cards", class: 'button', onclick: "submitClick()", data: { action: "/students/search.pdf" } %>
+	<% end %>
+</div>
+
+<% unless @students.blank? %>
+	<table>
+		<thead>
+			<tr>
+				<th>Student ID</th>
+				<th>Name(Khmer Character)</th>
+				<th>Name(Alphabet)</th>
+				<th>School Program</th>
+				<th>Date of Birth</th>
+				<th colspan="3"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @students.each do |student| %>
+				<tr>
+					<td><%= student.student_school_id %></td>
+					<td><%= student.name_khmer %></td>
+					<td><%= student.name_alphabet %></td>
+					<td><%= student.school_program.name %></td>
+					<td><%= student.birthdate %></td>
+					<td><%= link_to 'Show', student, class: 'link-button' %></td>
+					<td><%= link_to 'Edit', edit_student_path(student), class: 'link-button' %></td>
+					<td><%= button_to 'Delete', student, method: :delete, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'button'%></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>

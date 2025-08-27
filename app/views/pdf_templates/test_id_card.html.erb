@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="kh">
+<head>
+  <meta charset="UTF-8">
+  <title>ID Card</title>
+  <%= stylesheet_link_tag "card" %>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@100;300;400;700;900&family=Moul&display=swap" rel="stylesheet">
+</head>
+<body>
+  <% @students.each_slice(9) do |group| %>
+    <div class="sheet">
+      <% group.each do |student| %>
+        <div class="id-card">
+          <div class="bar top">
+            <p class="card-top">បណ្ណសម្គាល់ខ្លួននិស្សិត</p>
+          </div>
+          <div class="photo-area">
+            <% if student.profile_image.attached? %>
+              <%= image_tag rails_blob_url(student.profile_image, host: "http://localhost:3000") %>
+            <% end %>
+          </div>
+          <div class="text-block">
+            <p class="text-large bold khmer-name"><%= student.name_khmer %></p>
+            <p class="text-large bold"><%= student.name_alphabet %></p>
+            <p class="text-large battambang-bold"><%= birthdate(student.birthdate) %></p>
+
+            <p class="text-medium bold khmer-name"><%= student.study_level.name_khmer %></p>
+            <p class="text-medium bold battambang-bold">ជំនាញ: <%= student.school_program.skill_khmer %></p>
+            <div class="text-narrow">
+              <p class="text-medium battambang-regular"><%= student.started_at_khmer_calender %></p>
+              <p class="text-medium battambang-regular">កណ្តាល, <%= start_date(student.started_at) %></p>
+            </div>
+            <p class="text-medium bold khmer-name">វិទ្យាស្ថាន</p>
+          </div>
+          <div class="bar bottom">
+            <p class="card-footer">ជុតកំណត់: <%= expire_date(student.end_at) %></p>
+          </div>
+          <%= image_tag '/school-stamp.png', class: "stamp" %>
+        </div>
+      <% end %>
+    </div>
+    <div class="sheet">
+      <% rows = group.each_slice(3).to_a %>
+      <% rows.each do |row| %>
+        <% if row[2].blank? %>
+          <div class="card-back">
+          </div>
+        <% else %>
+          <div class="card-back">
+            <div class="logo">
+              <%= image_tag('/school-logo.png') %>
+            </div>
+
+            <div class="school-name-kh khmer-name">
+              <p>ក្រសួងការងារ និងបណ្តុះបណ្តាលវិង្ងាងីវៈ</p>
+              <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+            </div>
+
+            <div class="school-name-en">
+              <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+            </div>
+
+            <div class="student-info">
+              <p>STUDENT'S ID: <%= row[2].student_school_id %></p>
+              <p class="khmer-name">ឆ្នាំសេក្សា <%= academic_year(row[2]) %></p>
+            </div>
+
+            <div class="school-address">
+              <p>អាសយដ្ឋាន: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+              <p>ទូរស័ព្ទ: xxx xxx xxx / xxx xxx xxx / xxx xxx xxx</p>
+            </div>
+          </div>
+        <% end %>
+        <% if row[1].blank? %>
+          <div class="card-back">
+          </div>
+        <% else %>
+          <div class="card-back">
+            <div class="logo">
+              <%= image_tag('/school-logo.png') %>
+            </div>
+
+            <div class="school-name-kh khmer-name">
+              <p>ក្រសួងការងារ និងបណ្តុះបណ្តាលវិជា្ជីវៈ</p>
+              <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+            </div>
+
+            <div class="school-name-en">
+              <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+            </div>
+
+            <div class="student-info">
+              <p>STUDENT'S ID: <%= row[1].student_school_id %></p>
+              <p class="khmer-name">ឆ្នាំសេក្សា <%= academic_year(row[1]) %></p>
+            </div>
+
+            <div class="school-address">
+              <p>អាសយដ្ឋាន: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+              <p>ទូរស័ព្ទ: xxx xxx xxx / xxx xxx xxx / xxx xxx xxx</p>
+            </div>
+          </div>
+        <% end %>
+        <div class="card-back">
+          <div class="logo">
+            <%= image_tag('/school-logo.png') %>
+          </div>
+
+          <div class="school-name-kh khmer-name">
+            <p>ក្រសួងការងារ និងបណ្តុះបណ្តាលវិង្ងាងីវៈ</p>
+            <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+          </div>
+
+          <div class="school-name-en">
+            <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+          </div>
+
+          <div class="student-info">
+            <p>STUDENT'S ID: <%= row[0].student_school_id %></p>
+            <p class="khmer-name">ឆ្នាំសិក្សា <%= academic_year(row[0]) %></p>
+          </div>
+
+          <div class="school-address">
+            <p>អាសយដ្ឋាន: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+            <p>ទូរស័ព្ទ: xxx xxx xxx / xxx xxx xxx / xxx xxx xxx</p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</body>
+</html>

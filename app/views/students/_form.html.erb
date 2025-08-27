@@ -1,0 +1,57 @@
+<%= form_for(student) do |f| %>
+  <% if student.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+        <% student.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="edit-area">
+    <dl>
+      <dt>Name(Khmer Character)</dt>
+      <dd><%= f.text_field :name_khmer, maxlength: 100 %></dd>
+      <dt>Name(Alphabet)</dt>
+      <dd><%= f.text_field :name_alphabet, maxlength: 100 %></dd>
+      <dt>Gender</dt>
+      <dd><%= f.select :gender, Student.genders.keys.to_a, value: student.gender, class: 'class-select' %></dd>
+      <dt>Academic Year</dt>
+      <dd><%= f.select :academic_year_start, academic_year_list, value: student.academic_year_start %> - <%= f.select :academic_year_end, academic_year_list, value: student.academic_year_end %></dd>
+      <dt>Start Study</dt>
+      <dd><%= f.date_select :started_at, value: student.started_at %></dd>
+      <dt>End Study</dt>
+      <dd><%= f.date_select :end_at, value: student.end_at %></dd>
+      <dt>Khmer Calendar(For Start Date)</dt>
+      <dd><%= f.select :started_at_khmer_calender, khmer_calendar_list, value: student.started_at_khmer_calender, class: 'class-select' %></dd>
+      <dt>School Program</dt>
+      <dd><%= f.collection_select :school_program_id, school_programs, :id, :name, { include_blank: 'Please Select' }, class: 'class-select' %></dd>
+      <dt>Study Level</dt>
+      <dd><%= f.collection_select :study_level_id, study_levels, :id, :name, { include_blank: 'Please Select' }, class: 'class-select' %></dd>
+      <dt>Date of Birth</dt>
+      <dd><%= f.date_select :birthdate, start_year: Time.now.year - 100 %></dd>
+      <dt>Province of Birth</dt>
+      <dd><%= f.select :birth_place, provinces, { include_blank: 'Please Select' } %></dd>
+      <dt>Photo</dt>
+      <dd>
+        <% if student.profile_image.attached? %>
+          <%= image_tag student.profile_image, width: "105", height: "115" %>
+          <br/>
+        <% end %>
+        <%= f.file_field :profile_image %>
+      </dd>
+      <dt>Phone Number</dt>
+      <dd><%= f.text_field :phone_number, maxlength: 20 %></dd>
+      <dt>Parent Name</dt>
+      <dd><%= f.text_field :parent_name, maxlength: 100 %></dd>
+      <dt>Parent Phone Number</dt>
+      <dd><%= f.text_field :parent_phone_number, maxlength: 20 %></dd>
+    </dl>
+  </div>        
+  <%= f.submit (["new", "create"].include?(controller.action_name) ? "Create Student" : "Update Student"), class: 'button' %>
+  <% if controller.action_name == "edit" %>
+    <%= link_to 'Show', @student, class: 'link-button' %>
+  <% end %>
+  <%= link_to 'List', students_path, class: 'link-button' %>
+<% end %>
